@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exogenous Values Prediction</title>
+</head>
+<body>
+    <h1>Exogenous Values Prediction</h1>
+    <form method="post" action="/">
+        <label for="num_predictions">Number of Predictions:</label>
+        <input type="number" id="num_predictions" name="num_predictions" required><br><br>
+        
+        <div id="exog_input_fields">
+            <!-- Exogenous input fields will be dynamically added here -->
+        </div>
+        
+        <input type="submit" value="Predict">
+    </form>
+
+    <script>
+        document.getElementById('num_predictions').addEventListener('input', function() {
+            var numPredictions = parseInt(this.value);
+            var exogFields = document.getElementById('exog_input_fields');
+            exogFields.innerHTML = '';  // Clear previous input fields
+
+            for (var i = 0; i < numPredictions; i++) {
+                var div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="temperature_${i}">Temperature:</label>
+                    <input type="number" step="any" id="temperature_${i}" name="temperature_${i}" required><br><br>
+                    <label for="media_spend_${i}">Media Spend:</label>
+                    <input type="number" step="any" id="media_spend_${i}" name="media_spend_${i}" required><br><br>
+                `;
+                exogFields.appendChild(div);
+            }
+        });
+    </script>
+</body>
+</html>
